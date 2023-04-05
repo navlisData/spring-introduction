@@ -1,0 +1,24 @@
+server:
+  ssl:
+    key-store-type: "PKCS12"
+    key-alias: "springboot"
+    key-store-password: "password"
+    key-store: "classpath:keystore/springboot.p12"
+  port: 9091
+  http:
+    port: 9090
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springintroduction
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+configuration:
+  cron:
+    schedule: "* * * 10 * *"
