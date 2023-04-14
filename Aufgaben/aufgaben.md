@@ -10,21 +10,33 @@ Als Grundlage werden wir das Spring Boot-Framework verwenden, um schnell und eff
 leistungsstarke Webanwendung zu erstellen. Wir werden auch verschiedene Datenbank- und 
 Testtechnologien einsetzen, um sicherzustellen, dass unsere Anwendung stabil und robust ist.
 
+### Aufgabe 0:
+Erstelle eine docker-compose.yml, in welcher ein docker container erzeugt wird, auf welchem ein postgres image läuft.
+Die Datei sollte im ordner localdeployment abgelegt werden.
+
+
 ### Aufgabe 1:
-Erstelle ein SQL-Schema für eine Tabelle namens Car, das die folgenden Spalten enthält:
+Erstelle in dem Package db.migration.all ein FlyWay SQL-Schema für eine Tabelle namens Car, das die folgenden Spalten enthält:
 
 - **id** (integer): Die eindeutige ID des Autos. Dieses Feld sollte als Primary Key festgelegt werden und darf nicht null sein.
 - **model** (text): Der Name des Auto-Modells.
 - **brand** (text): Der Name des Auto-Herstellers.
-- **created_at** (timestamp with time zone): Das Datum und die Uhrzeit, zu denen das Auto erstellt wurde. Dieses Feld sollte vom Typ **timestamptz** sein.
+- **created_at** (timestamp with time zone): Das Datum und die Uhrzeit, zu denen das Auto erstellt wurde. Dieses Feld 
+- sollte vom Typ **timestamptz** sein.
 
-Die Tabelle sollte so gestaltet sein, dass sie die grundlegenden Informationen zu einem Auto speichern kann, einschließlich der Marke, des Modells und des Erstellungszeitpunkts. Um sicherzustellen, dass jedes Auto eine eindeutige ID hat, sollte die **id**-Spalte als Primary Key definiert werden. Darüber hinaus sollte sichergestellt werden, dass **id** nicht **null** sein kann.
+Die Tabelle sollte so gestaltet sein, dass sie die grundlegenden Informationen zu einem Auto speichern kann, 
+einschließlich der Marke, des Modells und des Erstellungszeitpunkts. Um sicherzustellen, dass jedes Auto eine 
+eindeutige ID hat, sollte die **id**-Spalte als Primary Key definiert werden. Darüber hinaus sollte sichergestellt 
+werden, dass **id** nicht **null** sein kann.
 
-Zusätzlich zu den Spalten in der Tabelle **Car** können auch andere Spalten hinzugefügt werden, um zusätzliche Informationen zu den Autos zu speichern, wie z.B. die Farbe, die Kilometerzahl oder der Preis.
+Zusätzlich zu den Spalten in der Tabelle **Car** können auch andere Spalten hinzugefügt werden, um zusätzliche 
+Informationen zu den Autos zu speichern, wie z.B. die Farbe, die Kilometerzahl oder der Preis.
+
+Informiere dich zusätzlich über die Namenskonvention für die Datei.
 
 
 ### Aufgabe 2:
-Erstelle eine Java-Klasse namens Car, die die folgenden Eigenschaften enthält:
+Erstelle in dem Package model eine Java-Klasse namens Car, die die folgenden Eigenschaften enthält:
 
 - **id** (Datentyp Long): Die eindeutige ID des Autos.
 - **model** (Datentyp String): Der Name des Auto-Modells.
@@ -46,6 +58,12 @@ sollte eine Methode sein, die alle Eigenschaften der Klasse als Parameter akzept
 neue Instanz der Klasse erstellt. Die Getter- und Setter-Methoden sollten verwendet werden, 
 um auf die Eigenschaften der Klasse zuzugreifen und sie zu aktualisieren.
 
+Implementieren Sie die Methoden "equals", "hashCode" und "toString" für die Klasse "Car". 
+Die "equals"-Methode sollte sicherstellen, dass zwei "Car"-Objekte als gleich betrachtet werden, 
+wenn sie die gleiche "id", "model" und "brand" haben. Die "hashCode"-Methode sollte einen 
+Hashcode für jedes "Car"-Objekt berechnen, basierend auf den Werten der "id", "model" und 
+"brand". Die "toString"-Methode sollte eine String-Repräsentation eines "Car"-Objekts 
+zurückgeben, die die "id", "model" und "brand" enthält.
 ### Aufgabe 3:
 Ergänze den Controller namens CarDealershipController, um die folgende Methoden:
 

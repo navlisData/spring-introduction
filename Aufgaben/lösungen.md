@@ -1,5 +1,22 @@
 # Lösungen
 
+#### Aufgabe 0:
+~~~~sql
+version: "1.0"
+
+services:
+
+    postgres:
+        image: postgres
+        container_name: springintroduction
+        hostname: postgres
+        ports:
+        - "5432:5432"
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=springintroduction
+~~~~
 #### Aufgabe 1:
 ~~~~sql
 CREATE TABLE IF NOT EXISTS Car (
@@ -14,7 +31,11 @@ CREATE TABLE IF NOT EXISTS Car (
 
 #### Aufgabe 2:
 ~~~~java
-@Id @GeneratedValue
+@Entity
+@Builder
+public class Car extends Auditable {
+
+    @Id @GeneratedValue
     private Long id;
     private String model;
     private String brand;
@@ -64,6 +85,29 @@ CREATE TABLE IF NOT EXISTS Car (
     public void setDate(Instant date) {
         this.date = date;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o)
+            return true;
+        if(!(o instanceof Car))
+            return false;
+        Car car = (Car) o;
+        return Objects.equals(this.id, car.id) && Objects.equals(this.model, car.model)
+                && Objects.equals(this.brand, car.brand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id, this.model, this.brand);
+    }
+
+    @Override
+    public String toString() {
+        return "Car {" + "id=" + this.id + ", model='" + this.model + '\'' + ", brand='" + this.brand + '\'' + '}';
+    }
+
+}
 ~~~~
 
 #### Aufgabe 3.1
