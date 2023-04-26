@@ -444,3 +444,56 @@ final int deleteCount = repository.deleteAllByBrand(brand);
         repository.deleteAllByDateBefore(time);
     }
 ~~~~
+
+### Aufgabe 8
+~~~~java
+@Validated
+public class CarCheckMappingRequest extends CarRequest {
+    public CarCheckMappingRequest(final Long id, final String model, final String brand){
+        super(id, model, brand);
+    }
+}
+~~~~
+~~~~java
+@Getter
+@Validated
+public class CarRequest {
+
+
+    private Long id;
+    @NotBlank(message = "Model is mandatory")
+    private String model;
+    @NotBlank(message = "Brand is mandatory")
+    private String brand;
+
+    public CarRequest(final Long id, final String model, final String brand) {
+        this.id = id;
+        this.model = model;
+        this.brand = brand;
+    }
+}
+~~~~
+
+### Aufgabe 9
+~~~~java
+public class CarNotFoundException extends RuntimeException{
+    CarNotFoundException(final Long id){
+        super("Could not find car " + id);
+    }
+}
+~~~~
+
+### Aufgabe 10
+~~~~java
+@ControllerAdvice
+public class CarNotFoundExceptionMapper {
+
+    @ResponseBody
+    @ExceptionHandler(CarNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String carNotFoundHandler(CarNotFoundException ex) {
+        return ex.getMessage();
+    }
+
+}
+~~~~

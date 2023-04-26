@@ -194,5 +194,19 @@ Um täglich alte Einträge zu löschen, könnte man beispielsweise einen Cron Jo
 der jeden Tag um Mitternacht läuft. Dieser Cron Job würde dann alle Datensätze aus der 
 Datenbank abrufen, die älter als ein bestimmtes Datum sind, und sie löschen.
 
-Vervollständige die Klasse CronTask, um Einträge, die älter als ein Tag sind, zu entfernen.
+Vervollständige die Klasse CronTask, um Einträge, die älter als ein Tag sind zu entfernen.
 Hinweis: Mit ${configuration.cron.schedule} kannst du auf den Intervall zugreifen.
+
+### Aufgabe 8
+Validiere den Input für die POST API über das Entity Objekt.
+Schreibe eine Entität mit allen benötigten Attributen für eine
+CarCheckMappingRequest.
+Extrahiere Attribute, die für andere Requests benötigt werden könnten in eine separate abstrakte Klasse
+und lasse diese Klasse daraus erben.
+Validiere die Inputparameter sinnvoll.
+
+### Aufgabe 9
+Schreibe eine CustomException für CarNotFound.
+
+### Aufgabe 10
+Schreibe einen ExceptionHandler für die vorherige CustomException.
