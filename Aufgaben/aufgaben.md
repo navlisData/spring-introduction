@@ -64,6 +64,12 @@ wenn sie die gleiche "id", "model" und "brand" haben. Die "hashCode"-Methode sol
 Hashcode für jedes "Car"-Objekt berechnen, basierend auf den Werten der "id", "model" und 
 "brand". Die "toString"-Methode sollte eine String-Repräsentation eines "Car"-Objekts 
 zurückgeben, die die "id", "model" und "brand" enthält.
+
+Nachdem die Klasse Car implementiert ist und die docker-compose.yml erstellt wurde, 
+kommentiere die Zeilen in <code>de/doubleslash/spring/introduction/repository/CarRepository.java</code> und
+<code>de/doubleslash/spring/introduction/springcontexttests/setup/SpringInMemoryTest.java</code> ein. \
+Führen sie nun <code>mvn clean install</code> im Terminal aus oder mithilfe der IDE im Maven plugin.
+
 ### Aufgabe 3:
 Ergänze den Controller namens CarDealershipController, um die folgende Methoden:
 
