@@ -66,8 +66,8 @@ Hashcode für jedes "Car"-Objekt berechnen, basierend auf den Werten der "id", "
 zurückgeben, die die "id", "model" und "brand" enthält.
 
 Nachdem die Klasse Car implementiert ist und die docker-compose.yml erstellt wurde, 
-kommentiere die Zeilen in <code>de/doubleslash/spring/introduction/repository/CarRepository.java</code> und
-<code>de/doubleslash/spring/introduction/springcontexttests/setup/SpringInMemoryTest.java</code> ein. \
+kommentiere die Zeilen in <code>app/src/main/java/de/doubleslash/spring/introduction/repository/CarRepository.java</code> und
+<code>app/src/test/java/de/doubleslash/spring/introduction/springcontexttests/setup/SpringInMemoryTest.java</code> ein. \
 Führen sie nun <code>mvn clean install</code> im Terminal aus oder mithilfe der IDE im Maven plugin.
 
 ### Aufgabe 3:
