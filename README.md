@@ -16,3 +16,9 @@ In the following you can read a short explanation for each category.
 - repository: Components, which encapsulate the logic required to access data sources.
 - spring: 
   - rest.control: Contains the mappings to specific exceptions.
+
+## Prerequisites
+- Java (19+)
+- Docker
+- Maven
+- Postgres
