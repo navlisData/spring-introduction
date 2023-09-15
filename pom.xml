@@ -15,7 +15,7 @@
     <description>NWK Beispielprojekt für Spring</description>
     <packaging>pom</packaging>
     <properties>
-        <java.version>19</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -92,5 +92,7 @@
             </plugin>
         </plugins>
     </build>
-
+    <modules>
+        <module>app</module>
+    </modules>
 </project>
