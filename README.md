@@ -1,4 +1,4 @@
-# SpringNWKProject
+# Spring Introduction Project
 
 ## Getting started
 
