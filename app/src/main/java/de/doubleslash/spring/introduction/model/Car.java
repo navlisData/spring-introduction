@@ -2,6 +2,7 @@ package de.doubleslash.spring.introduction.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,27 +12,29 @@ import java.time.Instant;
 import java.util.Objects;
 
 @Getter
-@Setter
 @Entity
 public class Car {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
     private String model;
+
+    @Setter
     private String brand;
 
-    @CreatedDate
+    @Setter @CreatedDate
     private Instant date;
 
-    private Car(long id, String model, String brand, Instant date) {
-        this.id = id;
+    private Car(String model, String brand, Instant date) {
         this.model = model;
         this.brand = brand;
         this.date = date;
     }
 
-    public static Car create(long id, String model, String brand, Instant date) {
-        return new Car(id, model, brand, date);
+    public static Car create(String model, String brand, Instant date) {
+        return new Car(model, brand, date);
     }
 
     @Override
