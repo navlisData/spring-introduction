@@ -4,7 +4,6 @@ import de.doubleslash.spring.introduction.model.Car;
 import de.doubleslash.spring.introduction.service.CarDealershipService;
 import de.doubleslash.spring.introduction.service.CarNotFoundException;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
@@ -49,7 +48,7 @@ public class CarDealershipController {
     public ResponseEntity<Car> get(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(service.findById(id));
-        } catch (EntityNotFoundException enf) {
+        } catch (CarNotFoundException cnf) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -76,7 +75,7 @@ public class CarDealershipController {
         try {
             service.deleteById(id);
             return ResponseEntity.ok(id);
-        } catch (EntityNotFoundException ex) {
+        } catch (CarNotFoundException cnf) {
             return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
             return new ResponseEntity<>(id, HttpStatus.INTERNAL_SERVER_ERROR);

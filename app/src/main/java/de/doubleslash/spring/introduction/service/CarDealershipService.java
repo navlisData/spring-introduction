@@ -40,7 +40,10 @@ public class CarDealershipService {
     }
 
     public void deleteById(Long id) throws CarNotFoundException {
-        repository.findById(id).ifPresentOrElse(car -> repository.deleteById(id), CarNotFoundException::new);
+        repository.findById(id).map(car -> {
+            repository.deleteById(id);
+            return Optional.of(id);
+        }).orElseThrow(CarNotFoundException::new);
     }
 
     public int deleteCarByBrand(String brand) {
