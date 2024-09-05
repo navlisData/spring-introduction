@@ -22,6 +22,19 @@ public class CarDealershipController {
         this.service = service;
     }
 
+    @Valid
+    @NotNull
+    @RequestBody
+    @PutMapping(value = "/car")
+    public ResponseEntity<Car> save(@RequestBody Car car) {
+        try {
+            service.save(car);
+            return ResponseEntity.ok(car);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping(value = "/cars")
     public ResponseEntity<List<Car>> all() {
         try {

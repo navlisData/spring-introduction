@@ -19,6 +19,10 @@ public class CarDealershipService {
         this.repository = repository;
     }
 
+    public void save(Car car)  {
+        repository.save(car);
+    }
+
     public List<Car> findAll()  {
         return repository.findAll();
     }
