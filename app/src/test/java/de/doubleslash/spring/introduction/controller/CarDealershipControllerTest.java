@@ -3,6 +3,7 @@ package de.doubleslash.spring.introduction.controller;
 import de.doubleslash.spring.introduction.model.Car;
 import de.doubleslash.spring.introduction.service.CarDealershipService;
 import jakarta.persistence.EntityNotFoundException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,9 +31,15 @@ class CarDealershipControllerTest {
 
     @BeforeEach
     public void setUp() {
+        System.out.println("Test started: " + this.getClass().getSimpleName());
         dummyList = List.of(Car.builder().model("X1").brand("BMW").build(), Car.builder().model("Fiesta").brand("Ford").build());
 
         controller = new CarDealershipController(service);
+    }
+
+    @AfterEach
+    public void afterEach() {
+        System.out.println("Test finished: " + this.getClass().getSimpleName());
     }
 
     @Test
