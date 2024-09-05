@@ -4,7 +4,7 @@ import de.doubleslash.spring.introduction.controller.CarCheckMappingRequest;
 import de.doubleslash.spring.introduction.model.Car;
 import de.doubleslash.spring.introduction.repository.CarRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.hibernate.cfg.NotYetImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class CarDealershipService {
 
     public Optional<Car> replaceCar(CarCheckMappingRequest carCheckMappingRequest) {
         //TODO: Check existence of carToReplace -> Exception handling
-        throw new NotYetImplementedException();
+        throw new NotImplementedException();
     }
 
     public void deleteById(Long id) throws EntityNotFoundException {
