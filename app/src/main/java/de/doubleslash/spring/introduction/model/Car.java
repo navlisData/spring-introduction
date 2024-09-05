@@ -1,24 +1,22 @@
 package de.doubleslash.spring.introduction.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.Instant;
 import java.util.Objects;
 
-@Getter
+
 @Entity
 @Builder
+@Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Car {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Long id;
+    private Long id;
 
     @Setter
     private String model;
@@ -26,8 +24,8 @@ public class Car {
     @Setter
     private String brand;
 
-    @CreatedDate
-    private final Instant date;
+    @CreatedDate @Column(name = "created_at")
+    private Instant date;
 
     @Override
     public boolean equals(Object obj) {
@@ -44,6 +42,6 @@ public class Car {
 
     @Override
     public String toString() {
-         return String.format("%s[id=%s, model=%s, brand=%s]", this.getClass().getSimpleName(), this.id, this.model, this.brand);
+        return String.format("%s[id=%s, model=%s, brand=%s]", this.getClass().getSimpleName(), this.id, this.model, this.brand);
     }
 }
