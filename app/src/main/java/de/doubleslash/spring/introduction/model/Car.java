@@ -27,6 +27,10 @@ public class Car {
     @CreatedDate @Column(name = "created_at")
     private Instant date;
 
+    public static Car replace(Long idOfOldCar, Car replacement) {
+        return new Car(idOfOldCar, replacement.getModel(), replacement.getBrand(), null);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof Car otherCar)) {

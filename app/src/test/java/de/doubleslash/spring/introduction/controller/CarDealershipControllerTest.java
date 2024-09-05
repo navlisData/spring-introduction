@@ -2,7 +2,7 @@ package de.doubleslash.spring.introduction.controller;
 
 import de.doubleslash.spring.introduction.model.Car;
 import de.doubleslash.spring.introduction.service.CarDealershipService;
-import jakarta.persistence.EntityNotFoundException;
+import de.doubleslash.spring.introduction.service.CarNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,7 +55,7 @@ class CarDealershipControllerTest {
     }
 
     @Test
-    public void findById_ReturnsEntityAndResponseWithBodyAndStatusOK() {
+    public void findById_ReturnsEntityAndResponseWithBodyAndStatusOK() throws CarNotFoundException {
         Car expected = dummyList.get(0);
         when(service.findById(anyLong())).thenReturn(expected);
 
@@ -68,9 +68,9 @@ class CarDealershipControllerTest {
     }
 
     @Test
-    public void findById_ThrowsExceptionAndStatusNotFound() {
+    public void findById_ThrowsExceptionAndStatusNotFound() throws CarNotFoundException {
         Long id = 999L;
-        when(service.findById(id)).thenThrow(new EntityNotFoundException());
+        when(service.findById(id)).thenThrow(new CarNotFoundException());
 
         //Testing findById API endpoint
         final ResponseEntity<Car> result = controller.get(id);
@@ -92,7 +92,7 @@ class CarDealershipControllerTest {
     }
 
     @Test
-    public void deleteCarById_ReturnsEntityAndResponseWithBodyAndStatusOK() {
+    public void deleteCarById_ReturnsEntityAndResponseWithBodyAndStatusOK() throws CarNotFoundException {
         doNothing().when(service).deleteById(anyLong());
 
         //Testing deleteCarByBrand API endpoint
@@ -103,9 +103,9 @@ class CarDealershipControllerTest {
     }
 
     @Test
-    public void deleteCarById_ThrowsExceptionAndStatusNotFound() {
+    public void deleteCarById_ThrowsExceptionAndStatusNotFound() throws CarNotFoundException {
         Long id = 999L;
-        doThrow(new EntityNotFoundException()).when(service).deleteById(id);
+        doThrow(new CarNotFoundException()).when(service).deleteById(id);
 
         //Testing deleteCarById API endpoint
         final ResponseEntity<Long> result = controller.deleteCar(id);

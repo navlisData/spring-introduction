@@ -1,11 +1,5 @@
 package de.doubleslash.spring.introduction.controller;
 
-import org.apache.commons.lang3.NotImplementedException;
+import de.doubleslash.spring.introduction.model.Car;
 
-public class CarCheckMappingRequest {
-
-    public CarCheckMappingRequest() {
-        throw new NotImplementedException();
-    }
-
-}
+public record CarCheckMappingRequest(Long idOfOldCar, Car replacement)  { }

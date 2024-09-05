@@ -3,8 +3,6 @@ package de.doubleslash.spring.introduction.service;
 import de.doubleslash.spring.introduction.controller.CarCheckMappingRequest;
 import de.doubleslash.spring.introduction.model.Car;
 import de.doubleslash.spring.introduction.repository.CarRepository;
-import jakarta.persistence.EntityNotFoundException;
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,17 +25,22 @@ public class CarDealershipService {
         return repository.findAll();
     }
 
-    public Car findById(Long id) throws EntityNotFoundException {
-        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public Car findById(Long id) throws CarNotFoundException {
+        return repository.findById(id).orElseThrow(CarNotFoundException::new);
     }
 
-    public Optional<Car> replaceCar(CarCheckMappingRequest carCheckMappingRequest) {
-        //TODO: Check existence of carToReplace -> Exception handling
-        throw new NotImplementedException();
+    public Optional<Car> replaceCar(CarCheckMappingRequest mappingRequest) throws CarNotFoundException {
+        //Check for existence of car to replace
+        findById(mappingRequest.idOfOldCar());
+
+        //Create new car instance with the id of the old instance, but new field values
+        Car replacement = Car.replace(mappingRequest.idOfOldCar(), mappingRequest.replacement());
+        repository.save(replacement);
+        return Optional.of(replacement);
     }
 
-    public void deleteById(Long id) throws EntityNotFoundException {
-        repository.findById(id).ifPresentOrElse(car -> repository.deleteById(id), EntityNotFoundException::new);
+    public void deleteById(Long id) throws CarNotFoundException {
+        repository.findById(id).ifPresentOrElse(car -> repository.deleteById(id), CarNotFoundException::new);
     }
 
     public int deleteCarByBrand(String brand) {

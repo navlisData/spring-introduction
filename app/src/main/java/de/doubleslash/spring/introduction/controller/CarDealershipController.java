@@ -2,6 +2,7 @@ package de.doubleslash.spring.introduction.controller;
 
 import de.doubleslash.spring.introduction.model.Car;
 import de.doubleslash.spring.introduction.service.CarDealershipService;
+import de.doubleslash.spring.introduction.service.CarNotFoundException;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -60,8 +61,14 @@ public class CarDealershipController {
     @RequestBody
     @PostMapping(value = "/cars")
     public ResponseEntity<Optional<Car>> replaceCar(@RequestBody CarCheckMappingRequest carCheckMappingRequest) {
-        Optional<Car> replaceCarOpt = service.replaceCar(carCheckMappingRequest);
-        return new ResponseEntity<>(replaceCarOpt, HttpStatus.OK);
+        try {
+            Optional<Car> replaceCarOpt = service.replaceCar(carCheckMappingRequest);
+            return new ResponseEntity<>(replaceCarOpt, HttpStatus.OK);
+        } catch (CarNotFoundException cnf) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping(value = "/cars/{id}")
