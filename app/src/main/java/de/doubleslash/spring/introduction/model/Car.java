@@ -9,7 +9,6 @@ import java.util.Objects;
 
 
 @Entity
-@Builder
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,6 +28,11 @@ public class Car {
 
     public static Car replace(Long idOfOldCar, Car replacement) {
         return new Car(idOfOldCar, replacement.getModel(), replacement.getBrand(), null);
+    }
+
+    @Builder
+    private static Car create(String model, String brand) {
+        return new Car(null, model, brand, null);
     }
 
     @Override
