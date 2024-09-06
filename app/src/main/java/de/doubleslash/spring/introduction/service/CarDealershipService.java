@@ -1,6 +1,7 @@
 package de.doubleslash.spring.introduction.service;
 
 import de.doubleslash.spring.introduction.controller.CarCheckMappingRequest;
+import de.doubleslash.spring.introduction.exception.CarNotFoundException;
 import de.doubleslash.spring.introduction.model.Car;
 import de.doubleslash.spring.introduction.repository.CarRepository;
 import org.springframework.stereotype.Service;
@@ -25,21 +26,21 @@ public class CarDealershipService {
         return repository.findAll();
     }
 
-    public Car findById(Long id) throws CarNotFoundException {
+    public Car findById(Long id) {
         return repository.findById(id).orElseThrow(CarNotFoundException::new);
     }
 
-    public Optional<Car> replaceCar(CarCheckMappingRequest mappingRequest) throws CarNotFoundException {
+    public Optional<Car> replaceCar(CarCheckMappingRequest mappingRequest) {
         //Check for existence of car to replace
-        findById(mappingRequest.idOfOldCar());
+        findById(mappingRequest.getIdOfOldCar());
 
-        //Create new car instance with the id of the old instance, but new field values
-        Car replacement = Car.replace(mappingRequest.idOfOldCar(), mappingRequest.replacement());
+        //Create new car instance with the id of the old entity, but new field values
+        Car replacement = Car.replace(mappingRequest.getIdOfOldCar(), mappingRequest.getReplacementDto().toCar());
         repository.save(replacement);
         return Optional.of(replacement);
     }
 
-    public void deleteById(Long id) throws CarNotFoundException {
+    public void deleteById(Long id) {
         repository.findById(id).map(car -> {
             repository.deleteById(id);
             return Optional.of(id);
