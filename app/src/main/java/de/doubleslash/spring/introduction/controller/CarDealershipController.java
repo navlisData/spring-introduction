@@ -1,10 +1,10 @@
 package de.doubleslash.spring.introduction.controller;
 
 import de.doubleslash.spring.introduction.model.Car;
+import de.doubleslash.spring.introduction.model.dto.CarCreationDto;
 import de.doubleslash.spring.introduction.service.CarDealershipService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,12 +23,11 @@ public class CarDealershipController {
         this.service = service;
     }
 
-    @Valid
-    @NotNull
     @PutMapping(value = "/car")
-    public ResponseEntity<Car> save(@RequestBody Car car) {
-        service.save(car);
-        return ResponseEntity.ok(car);
+    public ResponseEntity<Car> save(@Valid @RequestBody CarCreationDto carCreationDto) {
+        Car carToSave = carCreationDto.toCar();
+        service.save(carToSave);
+        return ResponseEntity.ok(carToSave);
     }
 
     @GetMapping(value = "/cars")

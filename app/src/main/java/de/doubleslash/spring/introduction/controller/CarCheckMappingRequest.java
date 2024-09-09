@@ -1,6 +1,6 @@
 package de.doubleslash.spring.introduction.controller;
 
-import de.doubleslash.spring.introduction.model.dto.CarReplacementDto;
+import de.doubleslash.spring.introduction.model.dto.CarCreationDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +19,6 @@ public class CarCheckMappingRequest {
 
     @Valid
     @NotNull(message = "Data for the new car instance is required")
-    private CarReplacementDto replacementDto;
+    private CarCreationDto creationDto;
 
 }

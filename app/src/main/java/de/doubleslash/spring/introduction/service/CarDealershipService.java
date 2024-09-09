@@ -35,7 +35,7 @@ public class CarDealershipService {
         findById(mappingRequest.getIdOfOldCar());
 
         //Create new car instance with the id of the old entity, but new field values
-        Car replacement = Car.replace(mappingRequest.getIdOfOldCar(), mappingRequest.getReplacementDto().toCar());
+        Car replacement = Car.replace(mappingRequest.getIdOfOldCar(), mappingRequest.getCreationDto().toCar());
         repository.save(replacement);
         return Optional.of(replacement);
     }

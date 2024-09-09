@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.doubleslash.spring.introduction.exception.CarNotFoundException;
 import de.doubleslash.spring.introduction.exception.GlobalExceptionHandler;
 import de.doubleslash.spring.introduction.model.Car;
-import de.doubleslash.spring.introduction.model.dto.CarReplacementDto;
+import de.doubleslash.spring.introduction.model.dto.CarCreationDto;
 import de.doubleslash.spring.introduction.service.CarDealershipService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -67,6 +67,21 @@ class CarDealershipControllerTest {
     }
 
     @Test
+    public void save_ReturnsStatusOkWithBody() {
+        // Arrange
+        CarCreationDto creationDto = new CarCreationDto("Fiat", "500");
+        doNothing().when(service).save(any());
+
+        // Act
+        final ResponseEntity<Car> result = controller.save(creationDto);
+
+        // Assert
+        assertThat(result.hasBody()).isTrue();
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        verify(service).save(any());
+    }
+
+    @Test
     public void findById_ReturnsEntityAndResponseWithBodyAndStatusOK() {
         // Arrange
         Car expected = dummyList.get(0);
@@ -101,7 +116,7 @@ class CarDealershipControllerTest {
     @Test
     public void replaceCar_ThrowsExceptionWithInvalidRequestBody() throws Exception {
         // Arrange
-        CarCheckMappingRequest mappingRequest = new CarCheckMappingRequest(0L, new CarReplacementDto("234", "X1"));
+        CarCheckMappingRequest mappingRequest = new CarCheckMappingRequest(0L, new CarCreationDto("234", "X1"));
         String json =  new ObjectMapper().writeValueAsString(mappingRequest);
 
         // Act

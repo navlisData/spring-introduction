@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CarReplacementDto {
+public class CarCreationDto {
 
     @NotNull(message = "Brand is required")
     @NotBlank(message = "Brand can not be a blank value")
