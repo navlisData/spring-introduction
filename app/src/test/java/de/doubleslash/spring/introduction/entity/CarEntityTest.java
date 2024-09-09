@@ -56,7 +56,5 @@ public class CarEntityTest {
         assertThat(replaced.getId()).isEqualTo(oldEntityId);
         assertThat(replaced.getModel()).endsWith(bmwCarExample.getModel());
         assertThat(replaced.getBrand()).endsWith(bmwCarExample.getBrand());
-
     }
-
 }

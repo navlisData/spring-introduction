@@ -1,6 +1,7 @@
 package de.doubleslash.spring.introduction.springcontexttests.setup;
 
 import de.doubleslash.spring.introduction.repository.CarRepository;
+import de.doubleslash.spring.introduction.service.CarDealershipService;
 import lombok.Getter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,11 +18,16 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ComponentScan("de.doubleslash.spring.introduction")
 @EnableAutoConfiguration
+//@ExtendWith(MockitoExtension.class)
 public abstract class SpringInMemoryTest {
 
     @Autowired
     @Getter
     private CarRepository repository;
+
+    @Autowired
+    @Getter
+    private CarDealershipService service;
 
     @Autowired
     @Getter

@@ -9,8 +9,4 @@ public class CarNotFoundException extends RuntimeException {
     public CarNotFoundException() {
         super("Car could not be found");
     }
-
-    public CarNotFoundException(String message) {
-        super(message);
-    }
 }
