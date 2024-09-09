@@ -11,7 +11,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //Required by JPA, reflection
 public class Car {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -51,10 +51,13 @@ class CarDealershipControllerTest {
 
     @Test
     public void findAll_ReturnsResponseWithBodyAndStatusOK() {
+        // Arrange
         when(service.findAll()).thenReturn(dummyList);
 
-        //Testing findAll API endpoint
+        // Act
         final ResponseEntity<List<Car>> result = controller.all();
+
+        // Assert
         assertThat(result.hasBody()).isTrue();
         assertThat(result.getBody()).isEqualTo(dummyList);
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -63,11 +66,14 @@ class CarDealershipControllerTest {
 
     @Test
     public void findById_ReturnsEntityAndResponseWithBodyAndStatusOK() {
+        // Arrange
         Car expected = dummyList.get(0);
         when(service.findById(anyLong())).thenReturn(expected);
 
-        //Testing findById API endpoint
+        // Act
         final ResponseEntity<Car> result = controller.get(0L);
+
+        // Assert
         assertThat(result.hasBody()).isTrue();
         assertThat(result.getBody()).isEqualTo(expected);
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -76,11 +82,14 @@ class CarDealershipControllerTest {
 
     @Test
     public void replaceCar_ReturnsExpectedOptional() {
+        // Arrange
         Optional<Car> expected = Optional.of(Car.builder().brand("BMW").model("X1").build());
         when(service.replaceCar(any())).thenReturn(expected);
 
-        //Testing replaceCar API endpoint
+        // Act
         final ResponseEntity<Optional<Car>> result = controller.replaceCar(any());
+
+        // Assert
         assertThat(result.hasBody()).isTrue();
         assertThat(result.getBody()).isEqualTo(expected);
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -106,20 +115,26 @@ class CarDealershipControllerTest {
 
     @Test
     public void findById_ThrowsExceptionAndStatusNotFound() throws Exception {
+        // Arrange
         when(service.findById(anyLong())).thenThrow(new CarNotFoundException());
 
-        //Testing findById API endpoint with exception
+        // Act
         MockMvc mvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(new GlobalExceptionHandler()).build();
+
+        // Assert
         mvc.perform(get("/car/999")).andExpect(status().isNotFound());
     }
 
     @Test
     public void deleteCarByBrand_ReturnsSizeOfCarEntriesAndStatusOK() {
+        // Arrange
         int expected = 0;
         when(service.deleteCarByBrand(anyString())).thenReturn(expected);
 
-        //Testing deleteCarByBrand API endpoint
+        // Act
         final ResponseEntity<Integer> result = controller.deleteCarByBrand(anyString());
+
+        // Assert
         assertThat(result.hasBody()).isTrue();
         assertThat(result.getBody()).isEqualTo(expected);
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -128,10 +143,13 @@ class CarDealershipControllerTest {
 
     @Test
     public void deleteCarById_ReturnsEntityAndResponseWithBodyAndStatusOK() {
+        // Arrange
         doNothing().when(service).deleteById(anyLong());
 
-        //Testing deleteCarByBrand API endpoint
+        // Act
         final ResponseEntity<Long> result = controller.deleteCar(anyLong());
+
+        // Assert
         assertThat(result.hasBody()).isTrue();
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
         verify(service).deleteById(anyLong());
@@ -139,12 +157,14 @@ class CarDealershipControllerTest {
 
     @Test
     public void deleteCarById_ThrowsExceptionAndStatusNotFound() throws Exception {
+        // Arrange
         doThrow(new CarNotFoundException()).when(service).deleteById(anyLong());
 
-        //Testing deleteCar API endpoint (via id) with exception
+        // Act
         MockMvc mvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(new GlobalExceptionHandler()).build();
-        mvc.perform(delete("/cars/999")).andExpect(status().isNotFound());
 
+        // Assert
+        mvc.perform(delete("/cars/999")).andExpect(status().isNotFound());
         verify(service).deleteById(anyLong());
     }
 }
