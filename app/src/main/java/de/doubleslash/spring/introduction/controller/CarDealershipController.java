@@ -2,16 +2,18 @@ package de.doubleslash.spring.introduction.controller;
 
 import de.doubleslash.spring.introduction.model.Car;
 import de.doubleslash.spring.introduction.service.CarDealershipService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@Validated
 @RestController
 public class CarDealershipController {
 
@@ -23,7 +25,6 @@ public class CarDealershipController {
 
     @Valid
     @NotNull
-    @RequestBody
     @PutMapping(value = "/car")
     public ResponseEntity<Car> save(@RequestBody Car car) {
         service.save(car);
@@ -36,13 +37,10 @@ public class CarDealershipController {
     }
 
     @GetMapping(value = "/car/{id}")
-    public ResponseEntity<Car> get(@PathVariable Long id) {
+    public ResponseEntity<Car> get(@PathVariable @Min(1) Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    @Valid
-    @NotNull
-    @RequestBody
     @PostMapping(value = "/cars")
     public ResponseEntity<Optional<Car>> replaceCar(@Valid @RequestBody CarCheckMappingRequest carCheckMappingRequest) {
         Optional<Car> replaceCarOpt = service.replaceCar(carCheckMappingRequest);

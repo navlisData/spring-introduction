@@ -1,8 +1,10 @@
 package de.doubleslash.spring.introduction.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.doubleslash.spring.introduction.exception.CarNotFoundException;
 import de.doubleslash.spring.introduction.exception.GlobalExceptionHandler;
 import de.doubleslash.spring.introduction.model.Car;
+import de.doubleslash.spring.introduction.model.dto.CarReplacementDto;
 import de.doubleslash.spring.introduction.service.CarDealershipService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -22,8 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -96,22 +98,21 @@ class CarDealershipControllerTest {
         verify(service).replaceCar(any());
     }
 
+    @Test
+    public void replaceCar_ThrowsExceptionWithInvalidRequestBody() throws Exception {
+        // Arrange
+        CarCheckMappingRequest mappingRequest = new CarCheckMappingRequest(0L, new CarReplacementDto("234", "X1"));
+        String json =  new ObjectMapper().writeValueAsString(mappingRequest);
 
-//    @Test
-//    public void replaceCar_ThrowsExceptionWithInvalidRequestBody() throws Exception {
-//        when(service.replaceCar(any())).thenReturn(null);
-//
-//        CarCheckMappingRequest mappingRequest = new CarCheckMappingRequest(0L, new CarReplacementDto("", "X1"));
-//        String json =  new ObjectMapper().writeValueAsString(mappingRequest);
-//
-//        //Testing replaceCar API endpoint with exception
-//        MockMvc mvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(new GlobalExceptionHandler()).build();
-//        mvc.perform(post("/cars")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(json)
-//        ).andExpect(status().isBadRequest());
-//        verify(service).replaceCar(any());
-//    }
+        // Act
+        MockMvc mvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(new GlobalExceptionHandler()).build();
+
+        // Assert
+        mvc.perform(post("/cars")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+        ).andExpect(status().isBadRequest());
+    }
 
     @Test
     public void findById_ThrowsExceptionAndStatusNotFound() throws Exception {
