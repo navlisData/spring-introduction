@@ -9,21 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-#    services:
-#      postgres:
-#        image: postgres:16
-#        env:
-#          POSTGRES_DB: testdb
-#          POSTGRES_USER: testuser
-#          POSTGRES_PASSWORD: testpass
-#        ports:
-#          - 5432:5432
-#        options: >-
-#          --health-cmd pg_isready
-#          --health-interval 10s
-#          --health-timeout 5s
-#          --health-retries 5
-
     steps:
       - uses: actions/checkout@v4
 
@@ -43,7 +28,6 @@ jobs:
 
       - name: Run Maven
         run: mvn clean test -Dspring.profiles.active=test
-      #        run: mvn clean install -Dspring.datasource.url=jdbc:postgresql://localhost:5432/testdb -Dspring.datasource.username=testuser -Dspring.datasource.password=testpass
 
       - name: Build and push Docker image
         if: success()
