@@ -1,4 +1,4 @@
-name: Spring App CI
+name: "Run app tests"
 
 on:
   push:
@@ -28,8 +28,3 @@ jobs:
 
       - name: Run Maven
         run: mvn clean test -Dspring.profiles.active=test
-
-      - name: Build and push Docker image
-        if: success()
-        run: |
-          docker build -t myapp:${{ github.sha }} .
