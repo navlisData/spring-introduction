@@ -5,6 +5,7 @@ WORKDIR /app
 # Copy pom.xml and the project files
 COPY pom.xml .
 COPY app/pom.xml app/
+COPY db-migration/pom.xml db-migration/
 COPY app/src app/src
 
 # Build the application using Maven

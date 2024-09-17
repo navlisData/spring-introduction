@@ -36,11 +36,10 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <!-- database configuration should be provided via Maven profile/environment specific properties -->
                 <configuration>
-                    <url>jdbc:postgresql://localhost:5432/springintroduction</url>
-                    <user>postgres</user>
-                    <password>password</password>
+                    <url>${env.DATABASE_URL}</url>
+                    <user>${env.DATABASE_USER}</user>
+                    <password>${env.DATABASE_PASSWORD}</password>
                     <outOfOrder>true</outOfOrder>
                     <schemas>
                         <schema>public</schema>

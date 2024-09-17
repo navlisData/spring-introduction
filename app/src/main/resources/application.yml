@@ -10,13 +10,12 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/springintroduction
-    username: postgres
-    password: password
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/springintroduction}
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 configuration:

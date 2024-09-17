@@ -1,14 +1,15 @@
 version: '3.8'
 services:
   db:
-    image: postgres:latest
+    image: postgres
     container_name: sposdb
     restart: always
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: springintroduction
 
   app:
     image: spring-demo:latest
@@ -21,6 +22,6 @@ services:
       - "9090:9090"
       - "9091:9091"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      DATABASE_URL: "jdbc:postgresql://db:5432/springintroduction"
+      DATABASE_USER: "postgres"
+      DATABASE_PASSWORD: "password"
