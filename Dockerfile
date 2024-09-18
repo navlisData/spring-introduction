@@ -5,8 +5,10 @@ WORKDIR /app
 # Copy pom.xml and the project files
 COPY pom.xml .
 COPY app/pom.xml app/
-COPY db-migration/pom.xml db-migration/
 COPY app/src app/src
+
+COPY db-migration/pom.xml db-migration/pom.xml
+COPY db-migration/src/main/resources/db/migration/all db-migration/src/main/resources/db/migration/all
 
 # Build the application using Maven
 RUN mvn clean package -DskipTests -e
