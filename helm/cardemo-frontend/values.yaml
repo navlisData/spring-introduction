@@ -1,0 +1,8 @@
+replicas: 1
+image:
+  repository: "navlisdata/car-frontend"
+  tag: "latest"
+backend:
+  host: "postgresdb-service" # service-name declared in db-chart/service.yaml
+  name: "springintroduction"
+

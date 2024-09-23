@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Validated
 @RestController
+@CrossOrigin(origins = "*")
 public class CarDealershipController {
 
     private final CarDealershipService service;
@@ -32,6 +33,7 @@ public class CarDealershipController {
 
     @GetMapping(value = "/cars")
     public ResponseEntity<List<Car>> all() {
+        System.out.println("request");
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 

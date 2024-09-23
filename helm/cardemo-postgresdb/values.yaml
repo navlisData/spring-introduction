@@ -1,0 +1,7 @@
+image:
+  tag: "latest"
+postgres:
+  database: "springintroduction"
+  storageSize: "1Gi"
+  user: "postgres" # Should be pulled by a secret-storage, here plain for demonstration purpose
+  password: "password" # Should be pulled by a secret-storage, here plain for demonstration purpose
