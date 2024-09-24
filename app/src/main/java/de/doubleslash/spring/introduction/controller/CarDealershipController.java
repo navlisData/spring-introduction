@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Validated
 @RestController
-@CrossOrigin(origins = "http://localhost:35553")
+@CrossOrigin(origins = "http://localhost:32223")
 public class CarDealershipController {
 
     private final CarDealershipService service;
