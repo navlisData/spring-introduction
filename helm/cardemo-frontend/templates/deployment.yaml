@@ -1,34 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-springapp
+  name: cardemo-springfrontend
   namespace: ns-car-springdemo
 spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-springapp
+      app: cardemo-springfrontend
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-springapp
+        app: cardemo-springfrontend
     spec:
       containers:
-        - name: springapp
+        - name: car-frontend
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: Always
           ports:
-            - containerPort: 9090
-          env:
-            - name: DATABASE_URL
-              value: jdbc:postgresql://{{ .Values.database.host }}:5432/{{ .Values.database.name }}
-            - name: DATABASE_USER
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name }}-spring-secret
-                  key: username
-            - name: DATABASE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name }}-spring-secret
-                  key: password
+            - containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /usr/share/nginx/html/config.js
+              subPath: config.js
+      volumes:
+        - name: config-volume
+          configMap:
+            name: frontend-config

@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-
 
 @AllArgsConstructor
 @Component
@@ -28,7 +25,7 @@ public class CronTask {
      */
     @Scheduled(cron = "* */5 * * * *")
     public void removeExpiredCars() {
-        repository.deleteAllByDateBefore(Instant.now().minus(24, ChronoUnit.HOURS));
+//        repository.deleteAllByDateBefore(Instant.now().minus(24, ChronoUnit.HOURS));
     }
 
 }

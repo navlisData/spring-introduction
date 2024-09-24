@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ""
+  name: "springbackend-service"
   namespace: ns-car-springdemo
 spec:
   ports:
     - port: 9090
       targetPort: 9090
+      nodePort: 30001
       protocol: TCP
       name: http
   selector:
-    app: {{ .Release.Name }}-springapp
-  type: NodePort 
+    app: cardemo-springapp
+  type: NodePort
