@@ -1,7 +1,0 @@
-replicas: 1
-image:
-  repository: "navlisdata/car-frontend"
-  tag: "latest"
-backend:
-  host: "localhost" # service-name declared in springapp-chart/service.yaml
-#  host: "springbackend-service" # service-name declared in springapp-chart/service.yaml
