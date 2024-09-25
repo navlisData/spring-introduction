@@ -1,0 +1,22 @@
+replicas: 1
+image:
+  repository: "navlisdata/car-springapp"
+  tag: "latest"
+
+database:
+  name: "springintroduction"
+  username: "postgres" # Should be pulled by a secret-storage, here plain for demonstration purpose
+  password: "password" # Should be pulled by a secret-storage, here plain for demonstration purpose
+
+postgresql:
+  auth:
+    existingSecret: cardemo-spring-secret
+    postgresqlUsernameKey: postgresql-username
+    postgresqlPasswordKey: postgresql-password
+    database: "springintroduction"
+  primary:
+    persistence:
+      enabled: true
+      size: "1Gi"
+      accessModes:
+        - ReadWriteOnce
