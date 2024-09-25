@@ -1,9 +1,9 @@
-name: "Run app tests"
+name: Run app tests
 
 on:
   push:
     branches:
-      - main
+      - release
 
 jobs:
   build:

@@ -1,4 +1,4 @@
-name: "Trivy scan"
+name: Trivy scan
 
 on:
   push:
@@ -17,15 +17,17 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.24.0
         with:
           scan-type: 'fs'
+          scan-ref: '.'
           ignore-unfixed: true
           format: 'sarif'
-          output: '$GITHUB_WORKSPACE/trivy-results.sarif'
+          output: 'trivy-results.sarif'
+          exit-code: "1" # Trivy exits with code 1 if vulnerabilities are found, causing the workflow step to fail.
           severity: 'MEDIUM,CRITICAL,HIGH'
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: '$GITHUB_WORKSPACE/trivy-results.sarif'
+          sarif_file: 'trivy-results.sarif'
