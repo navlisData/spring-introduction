@@ -3,7 +3,7 @@ name: "Run app tests"
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:

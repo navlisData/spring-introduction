@@ -3,7 +3,7 @@ name: Release Charts
 on:
   push:
     branches:
-      - sschalkowski
+      - main
 
 jobs:
   release:
